@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conversor de Moedas - Multi API</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrapper">
+    <header class="topbar">
+      <h1>💱 Conversor de Moedas</h1>
+      <button id="theme-toggle" class="icon-btn" aria-label="Alternar tema">🌙</button>
+    </header>
+
+    <section class="card">
+      <div id="notice" class="notice" hidden></div>
+
+      <div class="controls">
+        <label class="field">
+          <span class="field-label">Valor</span>
+          <input id="amount" type="number" inputmode="decimal" step="0.01" min="0" value="1" />
+        </label>
+
+        <div class="currency-row">
+          <label class="field">
+            <span class="field-label">De</span>
+            <select id="from" aria-label="Moeda de origem"></select>
+          </label>
+
+          <button id="swap" class="swap-btn" aria-label="Inverter moedas">⇄</button>
+
+          <label class="field">
+            <span class="field-label">Para</span>
+            <select id="to" aria-label="Moeda de destino"></select>
+          </label>
+        </div>
+
+        <button id="convert" class="cta">
+          Converter
+          <span id="spinner" class="spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div id="results" class="results">
+        <article class="result-card" data-source="Frankfurter">
+          <div class="source">Frankfurter</div>
+          <div class="value" id="frankfurter-value">—</div>
+          <div class="meta" id="frankfurter-meta">—</div>
+        </article>
+
+        <article class="result-card" data-source="Exchangerate.host">
+          <div class="source">Exchangerate.host</div>
+          <div class="value" id="exchangerate-value">—</div>
+          <div class="meta" id="exchangerate-meta">—</div>
+        </article>
+
+        <article class="result-card" data-source="AwesomeAPI">
+          <div class="source">AwesomeAPI</div>
+          <div class="value" id="awesome-value">—</div>
+          <div class="meta" id="awesome-meta">—</div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footnote">
+      Frankfurter, Exchangerate.host e AwesomeAPI • Sem chave de API
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

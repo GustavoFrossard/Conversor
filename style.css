@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --bg1:#0f172a; --bg2:#1e293b;
+  --card:#0b1220cc;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --accent:#22d3ee; --accent-2:#6366f1;
+  --ok:#10b981; --warn:#f59e0b; --err:#ef4444;
+  --border: rgba(255,255,255,.14);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(900px 600px at 10% -10%, #0ea5e930 0%, transparent 60%),
+    radial-gradient(900px 600px at 110% 110%, #8b5cf630 0%, transparent 60%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+}
+
+.wrapper{ max-width: 940px; margin:0 auto; padding: 22px; }
+
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 18px;
+}
+h1{ font-size: clamp(1.2rem, 3vw, 1.8rem); margin:0; font-weight:700; }
+
+.icon-btn{
+  width:40px; height:40px; border-radius:10px;
+  background:transparent; color:var(--text);
+  border:1px solid var(--border); display:grid; place-items:center;
+  cursor:pointer; transition:.2s;
+}
+.icon-btn:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
+
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border:1px solid var(--border); border-radius:20px; padding: 18px;
+  box-shadow: 0 12px 36px rgba(0,0,0,.35);
+}
+
+.notice{
+  border:1px solid var(--warn); color:#fff; background: #f59e0b26;
+  padding:10px 12px; border-radius:12px; margin-bottom: 12px; font-size:.95rem;
+}
+
+.controls{ display:grid; gap: 12px; }
+
+.field{ display:flex; flex-direction:column; gap: 6px; }
+.field-label{ color: var(--muted); font-size:.9rem; }
+
+input, select{
+  width:100%; background: rgba(255,255,255,.08); color:var(--text);
+  border:1px solid var(--border); border-radius:12px; padding: 12px 14px;
+  font-size:1rem; outline:none; transition: .2s;
+}
+input:focus, select:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(34,211,238,.15);
+}
+
+.currency-row{
+  display:grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items:end;
+}
+
+.swap-btn{
+  width: 44px; height: 44px; border-radius:12px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.08); color:var(--text);
+  cursor:pointer; transition:.2s; display:grid; place-items:center;
+}
+.swap-btn:hover{ background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.25); }
+.swap-btn.spin{ transform: rotate(180deg); }
+
+.cta{
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#041016; font-weight:700; border:none;
+  border-radius:14px; padding:12px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
+  transition:.2s;
+}
+.cta:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+.cta:disabled{ opacity:.6; cursor:not-allowed; }
+
+.spinner{
+  width:16px; height:16px; border:2px solid rgba(255,255,255,.5); border-top-color:#041016;
+  border-radius:50%; display:none; animation: spin 1s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg);} }
+.loading .spinner{ display:inline-block; }
+
+.results{
+  margin-top: 16px; display:grid; gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.result-card{
+  background: rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius: 16px; padding: 14px;
+}
+.result-card .source{ color: var(--muted); font-size:.95rem; margin-bottom:6px; }
+.result-card .value{ font-size: clamp(1.2rem, 4vw, 1.8rem); font-weight:700; }
+.result-card .meta{ color: var(--muted); font-size: .9rem; margin-top: 4px; }
+
+.result-card.best{ outline: 2px solid var(--ok); box-shadow: 0 0 0 4px rgba(16,185,129,.18) inset; }
+
+.footnote{
+  margin-top: 14px; color: var(--muted); font-size:.9rem; text-align:center;
+}
+
+body.light{
+  --bg1:#f6f9ff; --bg2:#e9eef7; --text:#0f172a; --muted:#475569;
+  --border: rgba(0,0,0,.14);
+}
