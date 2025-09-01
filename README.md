@@ -12,143 +12,60 @@ Um conversor de moedas **responsivo**, **moderno** e **interativo**, feito com *
 - 📱 Layout responsivo para desktop 
 
 ---
+🗄️ Banco de Dados
+O banco de dados utilizado é o MariaDB, com a seguinte configuração:
 
-# Pré-requisitos
-Instância EC2 com Ubuntu Server (22.04 LTS ou superior)
+Database: meu_site
+Tabela: cadastro
+Estrutura da Tabela cadastro
+CREATE TABLE cadastro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mensagem TEXT NOT NULL,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-Security Group configurado para portas: 22 (SSH), 80 (HTTP), 443 (HTTPS)
-
-Acesso SSH à instância
-
-# Etapa 1: Preparar o servidor LAMP
-
-Atualizar sistema
+⚙️ Passo a Passo de Instalação
+1. Atualizar pacotes
 sudo apt update && sudo apt upgrade -y
-
-Instalar Apache, PHP e dependências
-sudo apt install -y apache2 wget php-fpm php-mysql php-json php php-dev libapache2-mod-php
-
-Instalar MySQL Server
-sudo apt install -y mysql-server
-
-Iniciar e habilitar Apache
-sudo systemctl start apache2
+2. Instalar Apache, PHP e MariaDB
+sudo apt install -y apache2 mariadb-server php libapache2-mod-php php-mysql git
+3. Iniciar e habilitar serviços
 sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+4. Clonar o repositório
+cd /var/www/html
+sudo git clone https://github.com/guualonso/desafio-implementando-cliente-servidor-aws.git
+5. Configurar permissões
+sudo chown -R www-data:www-data /var/www/html/desafio-implementando-cliente-servidor-aws
+sudo chmod -R 755 /var/www/html/desafio-implementando-cliente-servidor-aws
+6. Criar o banco de dados
+sudo mysql -u root -p
+CREATE DATABASE meu_site;
+USE meu_site;
 
-Verificar status do Apache
-sudo systemctl is-enabled apache2
+CREATE TABLE cadastro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mensagem TEXT NOT NULL,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+▶️ Executando o Projeto
+Acesse o navegador no endereço público da instância EC2:
 
-Configurar permissões do usuário
-sudo usermod -a -G www-data $USER
-exit
+http://SEU-IP-PUBLICO/index.html
+Preencha o formulário e clique em Enviar.
 
-Reconectar e verificar grupos
-groups
+Para listar os cadastros feitos, acesse:
 
-Configurar permissões de diretórios
-sudo chown -R $USER:www-data /var/www
-sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
-find /var/www -type f -exec sudo chmod 0664 {} \;
-
-# Etapa 2: Testar o servidor LAMP
-
-Criar arquivo de teste PHP
-echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
-
-Verificar pacotes instalados
-dpkg -l | grep -E 'apache2|mysql-server|php'
-
-Remover arquivo de teste (após verificação)
-rm /var/www/html/phpinfo.php
-
-# Etapa 3: Proteger o servidor de banco de dados
-
-Executar script de segurança do MySQL
-sudo mysql_secure_installation
-
-Configurar autenticação do root (se necessário)
-sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'sua_senha_segura';"
-
-Reiniciar MySQL
-sudo systemctl restart mysql
-
-# Etapa 4: Configurar SSL/TLS
-
-Habilitar módulo SSL do Apache
-sudo a2enmod ssl
-
-Criar diretório para certificados
-sudo mkdir /etc/apache2/ssl
-
-Gerar certificado autoassinado
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache-selfsigned.key -out /etc/apache2/ssl/apache-selfsigned.crt
-
-Habilitar site padrão SSL
-sudo a2ensite default-ssl
-
-Reiniciar Apache
-sudo systemctl restart apache2
-
-# Etapa 5: Instalar phpMyAdmin
-
-Instalar phpMyAdmin
-sudo apt install -y phpmyadmin
-
-Durante a instalação, selecione:
-- Servidor web: apache2
-- Configurar banco de dados com dbconfig-common: Sim
-
-Criar link simbólico (se necessário)
-sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
-
-Instalar extensões PHP necessárias
-sudo apt install -y php-mbstring php-xml php-zip
-
-Reiniciar Apache
-sudo systemctl restart apache2
-
-# Comandos Adicionais Úteis
-
-Verificar status dos serviços
-sudo systemctl status apache2
-sudo systemctl status mysql
-
-Ver logs do Apache
-sudo tail -f /var/log/apache2/error.log
-sudo tail -f /var/log/apache2/access.log
-
-Configurar firewall (UFW)
-sudo ufw allow 'Apache Full'
-sudo ufw allow OpenSSH
-sudo ufw enable
-
-Verificar configuração SSL
-sudo apache2ctl -t
-sudo apache2ctl -S
-
-# Acessos
-Site: http://endereco-dns-publico
-
-PHP Info: http://endereco-dns-publico/phpinfo.php (remover após testes)
-
-phpMyAdmin: http://endereco-dns-publico/phpmyadmin
-
-Site HTTPS: https://endereco-dns-publico
-
-# Arquivos de Configuração Importantes
-Apache: /etc/apache2/apache2.conf
-
-Virtual Hosts: /etc/apache2/sites-available/
-
-SSL Config: /etc/apache2/mods-available/ssl.conf
-
-PHP Config: /etc/php/8.x/apache2/php.ini (versão pode variar)
-
-MySQL Config: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-# Notas Importantes
-No Ubuntu, o grupo do Apache é www-data (ao invés de apache)
-
-O phpMyAdmin é instalado via repositório oficial do Ubuntu
-
-Use apt instead de dnf para gerenciamento de pacotes
+http://SEU-IP-PUBLICO/listar.php
+📌 Observações
+Certifique-se de abrir a porta 80 (HTTP) no Security Group da instância EC2.
+O phpMyAdmin pode ser instalado em /var/www/html/phpmyadmin para gerenciar o banco graficamente:
+sudo apt install phpmyadmin
+📎 Links Importantes
+Repositório do Projeto no GitHub: Desafio Cliente Servidor AWS
