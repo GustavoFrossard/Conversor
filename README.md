@@ -9,4 +9,4 @@ Um conversor de moedas **responsivo**, **moderno** e **interativo**, feito com *
 - 🔄 Conversão entre diversas moedas do mundo
 - 📅 Cotação atualizada diariamente (dados do Banco Central Europeu)
 - 🌙 Alternância entre modo claro e escuro
-- 📱 Layout responsivo para desktop e 
+- 📱 Layout responsivo para desktop 
