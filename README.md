@@ -8,6 +8,5 @@ Um conversor de moedas **responsivo**, **moderno** e **interativo**, feito com *
 
 - 🔄 Conversão entre diversas moedas do mundo
 - 📅 Cotação atualizada diariamente (dados do Banco Central Europeu)
-- 📊 Gráfico dos últimos 14 dias da taxa de câmbio
 - 🌙 Alternância entre modo claro e escuro
 - 📱 Layout responsivo para desktop e 
