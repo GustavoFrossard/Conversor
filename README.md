@@ -11,6 +11,7 @@ Um conversor de moedas **responsivo**, **moderno** e **interativo**, feito com *
 - 🌙 Alternância entre modo claro e escuro
 - 📱 Layout responsivo para desktop 
 
+---
 
 Pré-requisitos
 Instância EC2 com Amazon Linux 2023
