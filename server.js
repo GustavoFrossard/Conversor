@@ -12,14 +12,14 @@ app.use(express.static(path.join(__dirname, 'Conversor')));
 
 // Pool de conexões com o MariaDB
 const pool = mariadb.createPool({
-  host: 'localhost',       // MariaDB está no mesmo EC2
-  user: 'meu_usuario',     // substitua pelo seu usuário
+  host: 'localhost',
+  user: 'meu_usuario',        // substitua pelo seu usuário
   password: 'minha_senha123', // substitua pela sua senha
   database: 'meu_banco',      // substitua pelo seu banco
   connectionLimit: 5
 });
 
-// Rota de teste (para verificar se o servidor está online)
+// Rota de teste
 app.get('/api/test', (req, res) => {
   res.json({ ok: true, message: 'Servidor Node + MariaDB funcionando 🚀' });
 });
@@ -53,4 +53,4 @@ app.get('/api/list', async (req, res) => {
 });
 
 // Inicia o servidor na porta 3000
-app.listen(3000, () => console.log('Servidor rodando em http://localhost:3000'));
+app.listen(3000, '0.0.0.0', () => console.log('Servidor rodando em http://0.0.0.0:3000'));
