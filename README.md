@@ -92,13 +92,6 @@ CREATE TABLE cadastro (
    http://SEU-IP-PUBLICO/index.html
    ```
 
-2. Preencha o formulário e clique em **Enviar**.
-
-3. Para listar os cadastros feitos, acesse:  
-   ```
-   http://SEU-IP-PUBLICO/listar.php
-   ```
-
 ---
 
 ## 📌 Observações
