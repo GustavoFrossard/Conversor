@@ -10,5 +10,4 @@ Um conversor de moedas **responsivo**, **moderno** e **interativo**, feito com *
 - 📅 Cotação atualizada diariamente (dados do Banco Central Europeu)
 - 📊 Gráfico dos últimos 14 dias da taxa de câmbio
 - 🌙 Alternância entre modo claro e escuro
-- 💾 Salvamento de preferências no `localStorage`
 - 📱 Layout responsivo para desktop e 
